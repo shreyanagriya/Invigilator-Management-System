@@ -1,0 +1,153 @@
+{% extends "inv/base.html" %} {% block title %} {{user.username}} - Profile Detail {% endblock %} 
+{% block body %}
+<section style="background-color: #eee">
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <!-- src="{{ notice.image.url }}" -->
+            {% if user.teacher %}
+            <img
+            src="{{ user.teacher.image.url }}"
+              alt="avatar"
+              class="img-fluid rounded-circle shadow-4-strong"
+              style="height: 200px; width: 200px; border-radius: 50%;"
+            />
+            {% endif %}
+
+            {% if user.student %}
+            <img
+            src="{{ user.student.image.url }}"
+              alt="avatar"
+              class="img-fluid rounded-circle shadow-4-strong"
+              style="height: 200px; width: 200px; border-radius: 50%;"
+            />
+            {% endif %}
+
+            {% if user.teacher %}
+            <h5 class="my-3">
+              {{user.teacher.first_name}} {{user.teacher.last_name}}
+            </h5>
+            <p class="text-muted mb-1">{{user.teacher.designation}}</p>
+            {% endif %} {% if user.student %}
+            <h5 class="my-3">
+              {{user.student.first_name}} {{user.student.last_name}}
+            </h5>
+            <p class="text-muted mb-1">Student</p>
+            {% endif %}
+
+            <p class="text-muted mb-1">Jahangirnagar University</p>
+            <p class="text-muted mb-3">Savar,Dhaka</p>
+
+            {% if user.student %}
+            <div class="d-flex justify-content-center mb-2">
+              <button type="button" class="btn btn-primary">
+                <a href="{% url 'edit_student' user.student.id %}" style="color:white">Edit Profile</a>
+              </button>
+            </div>
+            {% endif %}
+
+            {% if user.teacher %}
+            <div class="d-flex justify-content-center mb-2">
+              <button type="button" class="btn btn-primary">
+                <a href="{% url 'edit_teacher' user.teacher.id %}" style="color:white">Edit Profile</a>
+              </button>
+            </div>
+            {% endif %}
+
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">User Name</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{user.username}}</p>
+              </div>
+            </div>
+
+            <hr />
+            {% if user.student %}
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Reg Number</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">
+                  {{user.student.registration_number}}
+                </p>
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Batch</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{user.student.batch}}</p>
+              </div>
+            </div>
+            <hr />
+            {% endif %} {% if user.teacher %}
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">ShortName</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{user.teacher.short_name}}</p>
+              </div>
+            </div>
+            <hr />
+
+            {% endif %}
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Email</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{user.email}}</p>
+              </div>
+            </div>
+
+            {% if user.teacher %}
+            <hr >
+            <h5 class="text-center mb-2 fw-bold">Duties Schedule</h5>
+            <table class="table table-hover 
+            table-striped table-bordered table-responsive
+            border border-gray" >
+              <thead>
+                <tr class="table-dark">
+                  <th class=" text-center" scope="col">Date</th>
+                  <th class=" text-center" scope="col">Exam Name</th>
+                  <th class=" text-center" scope="col">Exam Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for exam in exams %}
+                <tr>
+                  <td class=" text-center ">{{exam.date}}</td>
+                  <td class=" text-center ">{{exam.subject}}</td>
+                  <td class=" text-center ">{{exam.exam_time}}</td>
+          
+                  {% endfor %}
+                </tr>
+              </tbody>
+            </table>
+            {% endif %}
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</section>
+
+
+{% endblock %}

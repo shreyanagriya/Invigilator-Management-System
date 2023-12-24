@@ -1,0 +1,28 @@
+{% extends 'inv/base.html' %} {% load static %}
+{% block title  %} Select Semister to View {% endblock %}
+ {% block body %}
+<h3 class="text-center m-4">
+  <i class="fa-solid fa-calendar-days  fa-lg me-3"></i>Routine of Each Semester
+</h3>
+
+<div class="row justify-content-center">
+  <div class="col-6">
+    <div class="card bg-light mb-3">
+      <div class="card-header">
+        <i class="fa-solid fa-address-card fa-lg me-2"></i> Select the Semester to view The Routine
+        Semster
+      </div>
+      <div class="card-body">
+        {% for semester in semester_list %}
+        <div class="d-grid gap-2 mb-3">
+          <button class="btn btn-lg btn-primary" type="button">
+            <a href="{{ semester.url }}" style="color:white" >View Routine of ({{ semester.name }}) Semester</a>
+          </button>
+        </div>
+
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

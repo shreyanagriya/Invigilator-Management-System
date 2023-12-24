@@ -1,0 +1,114 @@
+{% extends "inv/base.html" %}
+{% load static %}
+
+{% block body %}
+
+<div class="row mt-4">
+  <div class="col-12">
+    <div class="card bg-light ms-4 me-4 mb-4">
+      <div class="card-header">
+        <h4 class="text-center"><i class="fa-solid fa-list me-3"></i>Notices of The Department</h4>
+      </div>
+      <div class="card-body">
+        <div class="container">
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {% for notice in notices %}
+            <div class="col">
+              <div class="card shadow-sm">
+
+                {% if notice.image %}
+                <img src="{{ notice.image.url }}" alt="{{ notice.title }}" class="bd-placeholder-img card-img-top"
+                  width="100%" height="225">
+                {% else %}
+                <img src="{% static 'images/default-image.jpg' %}" alt="Default Image"
+                  class="bd-placeholder-img card-img-top" width="100%" height="225">
+                {% endif %}
+                <div class="card-body">
+                  <p class="card-text">{{notice.title|truncatechars:100}}</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-sm btn-outline-info me-2">
+                        <a href="{% url 'notice_detail' notice.id %}">View
+                        </a>
+                      </button>
+                      {% if user.is_authenticated and user.is_superuser %}
+                      <button type="button" class="btn btn-sm btn-outline-warning me-2">
+                        <a href="{% url 'notice_update' notice.pk %}"> Edit
+                        </a>
+                      </button>
+                      {% endif %}
+                      {% if user.is_authenticated and user.is_superuser %}
+                      <button type="button" class="btn btn-sm btn-outline-danger ">
+                        <a href="{% url 'notice-delete' notice.id %}"> Delete
+                        </a>
+                      </button>
+
+                      {% endif %}
+
+                    </div>
+                    <small class="text-muted"><i class="fa-solid fa-clock me-1"></i>{{ notice.created|date:"M d, Y"}}
+                    </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class=" d-flex justify-content-center ">
+
+          <nav aria-label="..." class="mt-3 border-1">
+            <ul class="pagination">
+              {% if notices.has_previous %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ notices.previous_page_number }}">Previous</a>
+              </li>
+              {% else %}
+              <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+              </li>
+              {% endif %}
+
+              {% for i in notices.paginator.page_range %}
+              {% if i == notices.number %}
+              <li class="page-item active"><a class="page-link">{{i}}</a></li>
+              {% else %}
+              <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+              {% endif %}
+              {% endfor %}
+
+              {% if notices.has_next %}
+              <li class="page-item">
+                <a class="page-link btn-danger" href="?page={{ notices.next_page_number }}">Next</a>
+              </li>
+              {% else %}
+              <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Next</a>
+              </li>
+              {% endif %}
+            </ul>
+
+          </nav>
+        </div>
+
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  function deleteNotice() {
+    if (confirm('Are you sure you want to delete this notice?')) {
+      const form = document.getElementById('delete-form');
+      form.submit();
+    }
+  }
+</script>
+{% endblock %}

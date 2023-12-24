@@ -1,0 +1,28 @@
+{% extends 'inv/base.html' %} {% load static %} 
+{% block title  %} Make Routine {% endblock %}
+{% block body %}
+<h3 class="text-center m-4">
+  <i class="fa-solid fa-calendar-days  fa-lg me-3"></i>Routine Creation
+</h3>
+
+<div class="row justify-content-center">
+  <div class="col-6">
+    <div class="card bg-light mb-3">
+      <div class="card-header">
+        <i class="fa-solid fa-address-card fa-lg"></i> Select Routine to Make A
+        Semster
+      </div>
+      <div class="card-body">
+        {% for semester in semester_list %}
+        <div class="d-grid gap-2 mb-3">
+          <button class="btn btn-lg btn-primary" type="button" style="color:white">
+            <a href="{{ semester.url }}" style="color:white"> Create Routine of ({{ semester.name }}) Semester</a>
+          </button>
+        </div>
+
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

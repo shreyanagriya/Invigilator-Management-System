@@ -1,0 +1,34 @@
+{% extends 'inv/base.html' %} 
+{% load static %} 
+{% block title  %} Student Register {% endblock %}
+{% block body %}
+<style>
+  .errorlist{
+      color: red;
+  }
+</style>
+<h3 class="text-center m-4"><i class="fa-solid fa-user fa-lg me-3"></i>Student Registration</h3>
+
+<div class="row justify-content-center">
+  <div class="col-6">
+    <div class="card bg-light mb-3">
+      <div class="card-header">
+        <i class="fa-solid fa-address-card fa-lg"></i> Input Your Information
+      </div>
+      <div class="card-body">
+        <form action="" method="POST">
+          {% csrf_token %} {{ form.as_p }}
+
+          <button type="submit" class="btn btn-primary">Register</button>
+          <p class="mt-2">
+            Do you Have an Account ?
+            <span>
+              <a href="{% url 'stu_login' %}" class="btn btn-danger ms-4">Login </a>
+            </span>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

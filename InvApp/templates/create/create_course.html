@@ -1,0 +1,27 @@
+{% extends 'inv/base.html' %} {% load static %}
+{% block title  %} Add Course {% endblock %}
+{% block body %}
+<h3 class="text-center m-4">
+  <i class="fa-solid fa-book me-3"></i>Course Creation
+</h3>
+
+<div class="row justify-content-center">
+  <div class="col-6">
+    <div class="card bg-light mb-3">
+      <div class="card-header">
+        <i class="fa-solid fa-address-card fa-lg"></i> Add Course Name and
+        Course Teacher
+      </div>
+      <div class="card-body">
+        <form action="" method="POST">
+          {% csrf_token %} {{ form.as_p }}
+          <button type="submit" class="btn btn-primary">Add</button>
+          {% if error %}
+          <li style="color: red">{{error}}</li>
+          {% endif %}
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

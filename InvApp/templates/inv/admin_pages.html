@@ -1,0 +1,36 @@
+{% extends 'inv/base.html' %} {% load static %}
+{% block title %} Amdin Pages {% endblock %}
+{% block body %}
+<h3 class="text-center m-4">
+    <i class="fa-solid fa-user fa-lg me-3"></i>Select The Option and Create
+</h3>
+
+<div class="row justify-content-center">
+    <div class="col-6">
+        <div class="card bg-light mb-3">
+            <div class="card-header">
+                <i class="fa-solid fa-address-card fa-lg me-2"></i> Create One of Them
+                Semster
+            </div>
+            <div class="card-body">
+
+                <div class="d-grid gap-2 mb-3">
+                    <button class="btn btn-lg btn-primary" type="button">
+                        <a href="{% url 'semester-create' %}" style="color:white">Create a Semester</a>
+                    </button>
+
+                    <button class="btn btn-lg btn-primary" type="button">
+                        <a href="{% url 'routine-create' %}" style="color:white">Create a Routine</a>
+                    </button>
+                    <button class="btn btn-lg btn-primary" type="button">
+                        <a href="{% url 'notice-create' %}" style="color:white">Create a Notice</a>
+                    </button>
+
+                    <button class="btn btn-lg btn-primary" type="button">
+                        <a href="{% url 'cratecourse' %}" style="color:white">Create a Course</a>
+                    </button>
+                    <button class="btn btn-lg btn-primary" type="button">
+                        <a href="{% url 'examroutine' %}" style="color:white">Make Routine</a>
+                    </button>
+                </div>
+                {% endblock %}

@@ -1,0 +1,64 @@
+{% extends "inv/base.html" %}
+{% load static %}
+{% block title %} All Notices {% endblock %}
+{% block body %}
+
+<hr>
+<h3 class="m-4 text-center">All Notices have been Posted</h3>
+<hr>
+<div class="album py-5 bg-light">
+  <div class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      {% for notice in notices %}
+
+      <div class="col">
+        <div class="card shadow-sm">
+
+          {% if notice.image %}
+          <img src="{{ notice.image.url }}" alt="{{ notice.title }}" class="bd-placeholder-img card-img-top"
+            width="100%" height="225">
+          {% else %}
+          <img src="{% static 'images/default-image.jpg' %}" alt="Default Image" class="bd-placeholder-img card-img-top"
+            width="100%" height="225">
+          {% endif %}
+
+          <div class="card-body">
+            <p class="card-text">{{notice.title|truncatechars:100}}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-outline-info me-2">
+                  <a href="{% url 'notice_detail' notice.id %}">View
+                  </a>
+                </button>
+                {% if user.is_authenticated and user.is_superuser %}
+                <button type="button" class="btn btn-sm btn-outline-danger me-2">
+                  <a href="{% url 'notice_update' notice.pk %}"> Edit
+                  </a>
+                </button>
+                {% endif %}
+
+                {% if user.is_authenticated and user.is_superuser %}
+                <button type="button" class="btn btn-sm btn-outline-danger">
+                  <a href="{% url 'notice-delete' notice.id %}"> Delete
+                  </a>
+                </button>
+
+                {% endif %}
+
+              </div>
+                    <small class="text-muted"><i class="fa-solid fa-clock me-1"></i>{{ notice.created|date:"M d, Y"}}
+                    </small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% endfor %}
+
+
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

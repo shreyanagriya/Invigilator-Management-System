@@ -1,0 +1,61 @@
+{% extends 'inv/base.html' %} 
+{% load static %} 
+{% block title  %} {{semester_name}} - Semester Routine{% endblock %}
+{% block body %}
+<h3 class="text-center m-4">
+  <i class="fa-solid fa-calendar-days  fa-lg me-3"></i>Routine Details
+</h3>
+
+
+<div class="row">
+  <div class="col-12">
+    <div class="card bg-light ms-4 me-4 mb-4">
+      <div class="card-header">
+        <h4><i class="fa-solid fa-list fa-lg me-2"></i> Routine for This Semester => ( {{semester_name}} )</h4>
+      </div>
+      <div class="card-body">
+        <p class="card-text">
+        <div class="table-responsive">
+          <table class="table table-hover 
+          table-striped table-bordered table-responsive
+          border border-gray">
+            <thead>
+              <tr class="table-dark">
+                <th class=" text-center" scope="col">Date</th>
+                <th class=" text-center" scope="col">Exam Name</th>
+                <th class=" text-center" scope="col">Exam Time</th>
+                <th class=" text-center" scope="col">Invigilators</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for exam in exams %}
+
+              <tr>
+                <td class=" text-center ">{{exam.date}}</td>
+                <td class=" text-center ">{{exam.subject}}</td>
+                <td class=" text-center ">{{exam.exam_time}}</td>
+                <td class=" text-start ">
+                  {% for teacher in exam.teachers.all %}
+                  {% if teacher.short_name != exam.subject.course_teacher.short_name %}
+                  
+                  <li>{{ teacher.first_name }} {{teacher.last_name}} ({{teacher.short_name}})</li>
+                  
+                  {% endif %}
+                  {% endfor %}
+                  <li>{{exam.subject.course_teacher.first_name}}
+                     {{exam.subject.course_teacher.last_name}}
+                     ({{exam.subject.course_teacher.short_name}}) <i class="fa-solid fa-person-chalkboard"></i>
+                    </li>
+                </td>
+
+                {% endfor %}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

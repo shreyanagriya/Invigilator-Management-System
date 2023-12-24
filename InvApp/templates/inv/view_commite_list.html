@@ -1,0 +1,56 @@
+{% extends 'inv/base.html' %} 
+{% load static %} 
+{% block title  %} Exam Committe & Routine {% endblock %}
+{% block body %}
+<h3 class="text-center m-4">
+  <i class="fa-solid fa-user fa-lg me-3"></i>Routine
+</h3>
+
+
+<div class="row">
+  <div class="col-12">
+    <div class="card bg-light ms-4 me-4 mb-4">
+      <div class="card-header">
+        <h4><i class="fa-solid fa-list fa-lg me-2"></i> Chairman and Routine View of Each Semester</h4>
+      </div>
+      <div class="card-body">
+        <p class="card-text">
+        <div class="table-responsive">
+          <table class="table table-hover 
+          table-striped table-bordered table-responsive
+          border border-gray">
+            <thead>
+              <tr class="table-dark">
+                <th class=" text-center" scope="col">Semester</th>
+                <th class=" text-center" scope="col">Chairman</th>
+                <th class=" text-center" scope="col">Semester Routine</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for semester in semesters %}
+
+              <tr>
+
+                <td class=" text-center ">{{semester.semester_name}}</td>
+                <td class=" text-center ">
+                  {{semester.chairman.first_name}}
+                  {{semester.chairman.last_name}}
+                  ({{semester.chairman.short_name}})
+                </td>
+                <td class=" text-center ">
+                  <a href="{% url 'viewsemester' semester.semester_name %}">
+                    <button class="btn btn-info">View Routine</button> 
+                  </a>
+                </td>
+
+                {% endfor %}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
